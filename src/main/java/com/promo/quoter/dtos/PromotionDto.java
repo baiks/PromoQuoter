@@ -27,4 +27,12 @@ public class PromotionDto {
         private Integer buyX;
         private Integer getY;
     }
+
+    @Getter
+    @Setter
+    @Builder
+    public static class ResponseDto {
+        private String status;
+        private String description;
+    }
 }

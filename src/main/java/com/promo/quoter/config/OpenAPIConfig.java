@@ -9,7 +9,7 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+@Configuration
 @OpenAPIDefinition(
         info = @Info(
                 title = "Promo Quoter",
@@ -21,7 +21,6 @@ import org.springframework.context.annotation.Configuration;
                 contact = @Contact(name = "Paul Kabaiku", email = "paulkabaiku023@gmail.com")
         )
 )
-@Configuration
 public class OpenAPIConfig {
     @Bean
     public OpenAPI openAPI() {

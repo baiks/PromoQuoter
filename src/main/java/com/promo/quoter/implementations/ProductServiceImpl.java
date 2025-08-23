@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -20,8 +22,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<?> create(ProductDto.CreateProductDto createProductDto) {
+
         Product product = modelMapper.map(createProductDto, Product.class);
         productRepository.save(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 }
