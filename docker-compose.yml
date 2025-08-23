@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  school-system-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: baiks384/school-system-api
+    container_name: school-system-api
+    ports:
+      - "8064:8064"
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dpg-d0q0108dl3ps73b6e760-a.oregon-postgres.render.com:5432/school_system_98fu
+      SPRING_DATASOURCE_USERNAME: baiks
+      SPRING_DATASOURCE_PASSWORD: CSlBkrVeNEHgDIfxCnvuDluHKib8d9Q1
+      SPRING_JPA_HIBERNATE_DDL-AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA: school_system_98fu
+      SPRING_JPA_SHOW-SQL: "1"
+      SPRING_HIKARI_AUTO-COMMIT: "1"
+      SPRING_HIKARI_MINIMUM-IDLE: "5"
+      SPRING_HIKARI_MAXIMUM-POOL-SIZE: "20"
+      SPRING_HIKARI_CONNECTION-TIMEOUT: "30000"
+      SPRING_HIKARI_IDLE-TIMEOUT: "600000"
+      SPRING_HIKARI_MAX-LIFETIME: "1800000"
+
+      # Email config
+      SPRING_MAIL_HOST: paulkimani.net
+      SPRING_MAIL_PORT: "465"
+      SPRING_MAIL_USERNAME: developer@paulkimani.net
+      SPRING_MAIL_PASSWORD: Jaduongmapeng@123
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "false"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_SSL_ENABLE: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_CONNECTIONTIMEOUT: "10000"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_TIMEOUT: "10000"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_WRITETIMEOUT: "1000"
+
+      # Kafka config
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:9092
+      SPRING_KAFKA_CONSUMER_GROUP-ID: school_grp
+      SPRING_KAFKA_CONSUMER_AUTO-OFFSET-RESET: earliest
+      SPRING_KAFKA_CONSUMER_KEY-DESERIALIZER: org.apache.kafka.common.serialization.StringDeserializer
+      SPRING_KAFKA_CONSUMER_VALUE-DESERIALIZER: org.apache.kafka.common.serialization.StringDeserializer
+      SPRING_KAFKA_PRODUCER_KEY-SERIALIZER: org.apache.kafka.common.serialization.StringSerializer
+      SPRING_KAFKA_PRODUCER_VALUE-SERIALIZER: org.apache.kafka.common.serialization.StringSerializer
+
+      SERVER_PORT: "8064"
+      DEV_URL: http://localhost:8064
+      PROD_URL: http://prod:8064
+      JWT_SECRET: web-api@2024
+      JWT_EXPIRYINMINS: "900"
+      SMS_URL: https://sms.textsms.co.ke/api/services/sendsms/
+      SMS_PARTNER_ID: "12362"
+      SMS_API_KEY: 773ac3416a5b3f7cb26dbccad158c929
+      SMS_SHORTCODE: TextSMS
+      SMS_PASS_TYPE: plain
+    networks:
+      - school-system-api-network
+
+#  zookeeper:
+#    image: confluentinc/cp-zookeeper:7.4.0
+#    environment:
+#      ZOOKEEPER_CLIENT_PORT: 2181
+#      ZOOKEEPER_TICK_TIME: 2000
+#    networks:
+#      - school-system-api-network
+
+#  kafka:
+#    image: confluentinc/cp-kafka:7.4.0
+#    depends_on:
+#      - zookeeper
+#    ports:
+#      - "9092:9092"
+#    environment:
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#    networks:
+#      - school-system-api-network
+
+networks:
+  school-system-api-network:
+    driver: bridge
