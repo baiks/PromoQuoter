@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CartQuoteRequest {
     @NotEmpty(message = "Items cannot be empty")
     @Valid
@@ -24,6 +26,7 @@ public class CartQuoteRequest {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    @Builder
     public static class CartItem {
         @NotNull(message = "Product ID is required")
         private String productId;

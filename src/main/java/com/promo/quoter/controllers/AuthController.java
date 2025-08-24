@@ -94,7 +94,7 @@ public class AuthController {
                             schema = @Schema(implementation = JwtResponse.class),
                             examples = @ExampleObject(
                                     value = "{\n" +
-                                            "  \"status_code\": 200,\n" +
+                                            "  \"statusCode\": 200,\n" +
                                             "  \"username\": \"user@example.com\",\n" +
                                             "  \"role\": \"USER\",\n" +
                                             "  \"type\": \"Bearer\",\n" +

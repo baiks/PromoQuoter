@@ -58,9 +58,8 @@ public class AuthServiceImpl implements AuthService {
             usersRepository.save(users);
             return new ResponseEntity<>(users, HttpStatus.CREATED);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            throw new CustomException("Failed to create user",HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -77,7 +76,7 @@ public class AuthServiceImpl implements AuthService {
 
 
         } catch (BadCredentialsException e) {
-            throw new CustomException("Invalid username or password.");
+            throw new CustomException("Invalid username or password.",HttpStatus.BAD_REQUEST);
         }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -87,7 +86,7 @@ public class AuthServiceImpl implements AuthService {
         LocalDateTime presentDateTime = LocalDateTime.now();
         JwtResponse result = JwtResponse.builder()
                 .username(userDetails.getUsername())
-                .status_code(0)
+                .statusCode(200)
                 .role(null)
                 .type("BEARER")
                 .token(jwt)

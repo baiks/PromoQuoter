@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class JwtResponse {
-    private int status_code;
+    private int statusCode;
     private String username;
     private String role;
     private String type;

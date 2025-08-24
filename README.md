@@ -155,6 +155,8 @@ mvn integration-test
 
 # Generate test reports
 mvn surefire-report:report
+
+Open target/surefire-reports/
 ```
 
 ### Code Quality
@@ -167,4 +169,12 @@ mvn spotbugs:check
 
 # Generate coverage report
 mvn jacoco:report
+
+Incase you run into this error 'Skipping JaCoCo execution due to missing execution data file'
+
+Use
+
+mvn clean verify
+
+Open target/site/jacoco/index.html
 ```
